@@ -1,6 +1,19 @@
-
+window.Vue = require('vue');
 window._ = require('lodash');
 
+let authorizations = require('./authorizations');
+
+Vue.prototype.authorize = function(...params) {
+	if(! window.App.signIn) return false;
+
+	if(typeof params[0] === 'string') {
+		return authorizations[params[0]](params[1]);
+	}
+
+	return params[0](window.App.user);
+};
+
+Vue.prototype.signIn= window.App.signIn;
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -37,19 +50,9 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
 
-// import Echo from 'laravel-echo'
+window.events = new Vue();
 
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key',
-//     cluster: 'mt1',
-//     encrypted: true
-// });
+window.flash = function(message, level = 'success') {
+	window.events.$emit('flash', { message, level });
+}

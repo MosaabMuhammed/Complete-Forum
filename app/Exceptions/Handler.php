@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use App\Exceptions\TrottleException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -48,6 +49,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // if (app()->environment() === 'testing') throw $exception;
+
+        if($exception instanceof TrottleException) {
+            return response( $exception->getMessage(), 429);
+        }
         return parent::render($request, $exception);
     }
 }

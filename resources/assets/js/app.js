@@ -15,7 +15,12 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('flash', require('./components/flash.vue'));
+Vue.component('thread', require('./pages/Thread.vue'));
+Vue.component('paginator', require('./components/paginator.vue'));
+Vue.component('UserNotification', require('./components/UserNotification.vue'));
+Vue.component('avatar-form', require('./components/AvatarForm.vue'));
+Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));
 
 const app = new Vue({
     el: '#app'
