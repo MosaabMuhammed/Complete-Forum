@@ -11,7 +11,7 @@ Auth::routes();
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/threads', 'ThreadsController@index')->name('threads');
-Route::get('/threads/create', "ThreadsController@create");
+Route::get('/threads/create', "ThreadsController@create")->middleware('redirect-if-not-confirmed');
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
 Route::patch('/threads/{channel}/{thread}', 'ThreadsController@update');
 Route::get('/threads/{channel}', 'ThreadsController@index');
