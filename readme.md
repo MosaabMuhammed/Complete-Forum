@@ -36,7 +36,7 @@ php artisan cache:clear
 ```
 
 ### Step 4.
-Use your forum! by writing in your terminal (in the current directory)
+Use your forum! by writing in your terminal (in the current directory "Complete-Forum")
 ```bash
 php artisan serve
 ```
