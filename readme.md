@@ -1,6 +1,6 @@
 # Council [![Build Status](https://travis-ci.org/MosaabMuhammed/Complete-Forum.svg?branch=master)](https://travis-ci.org/MosaabMuhammed/Complete-Forum)
 
-This is an open source forum that contains the most of well-known functionalities of every form.
+This is an open source forum that contains the most of well-known functionalities of any form.
 
 ## Installation
 ### Step 1.
