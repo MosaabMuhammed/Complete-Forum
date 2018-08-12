@@ -62,7 +62,6 @@ class ThreadsController extends Controller
             'title' => 'required|spamfree',
             'body'  => 'required|spamfree', 
             'channel_id' => 'required|exists:channels,id',
-            'g-recaptcha-response'  =>  ['required', new Recaptcha()], 
         ]);
 
         (new \App\Inecpections\Spam)->detect(request('body'));
@@ -121,6 +120,7 @@ class ThreadsController extends Controller
         $this->authorize('update', $thread);
         
         $thread->delete();
+
         if(request()->wantsJson()) {
             return response([], 204);
         }

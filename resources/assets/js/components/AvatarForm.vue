@@ -4,6 +4,7 @@
 			<img :src="avatar" :alt="user.name" width="50" height="50" class="img-circle" style="margin-right: 10px">
 			
 			<h2 v-text="user.name"></h2>
+			<span>({{ user.reputation }}XP)</span>
 		</div>
 		<form v-if="canUpdate" enctype="multipart/form-data">
 			<image-upload name="avatar" @loaded="onLoad"></image-upload>

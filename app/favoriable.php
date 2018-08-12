@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Reputation;
 use Illuminate\Database\Eloquent\Model;
 
 trait favoriable
@@ -15,6 +16,7 @@ trait favoriable
 	{
 		$attributes = ['user_id' => auth()->id() ];
 		if(! $this->favorites()->where($attributes)->exists()) {
+			Reputation::award($this->owner, Reputation::REPLAY_WAS_FAVORITED);
 			return $this->favorites()->create($attributes);
 		}
 	}
@@ -30,6 +32,7 @@ trait favoriable
 	{
 		$attributes = ['user_id' => auth()->id() ];
 		$this->favorites()->where($attributes)->get()->each->delete();
+		Reputation::reduce(auth()->user(), Reputation::REPLAY_WAS_MARKED_BEST );
 	}
 	public function getIsFavoritedAttribute()
 	{

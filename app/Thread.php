@@ -2,6 +2,7 @@
 
 namespace App;
  use App\ThreadSubscribtion;
+use App\Reputation;
 use App\Filters\ThreadFilters;
 use App\Events\ThreadHasNewReply;
 use Illuminate\Support\Facades\Redis;
@@ -24,10 +25,14 @@ class Thread extends Model
 
         static::deleting(function($thread) {
             $thread->replies->each->delete();
+
+            Reputation::reduce($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
 
         static::created(function($thread) {
             $thread->update(['slug' =>  $thread->title ]);
+            // $thread->creator->increment('reputation', 10);
+            Reputation::award($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
     }
     public function path()
@@ -111,6 +116,8 @@ class Thread extends Model
     public function markBestReply(Reply $reply)
     {
         $this->update(['best_reply_id'  =>  $reply->id]);
+        // $reply->owner->increment('reputation', 50);
+        Reputation::award($reply->owner, Reputation::REPLAY_WAS_MARKED_BEST );
     }
 
     public function lock()

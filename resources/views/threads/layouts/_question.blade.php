@@ -3,7 +3,7 @@
 	<div class="panel-heading"> <div class="level">
             <div class="flex">
                 <img src="{{ $thread->creator->avatar_path }}" alt="{{ $thread->creator->name }}" width="35" height="40" class="img-rounded" style="margin-right: 10px">
-                <strong><a href="/profile/{{ $thread->creator->name }}">{{ $thread->creator->name }}</a></strong> Wrote:
+                <strong><a href="/profile/{{ $thread->creator->name }}">{{ $thread->creator->name }} ({{ $thread->creator->reputation }}XP)</a></strong> Wrote:
                 <h3 v-text="form.title"></h3>
             </div>
         </div>

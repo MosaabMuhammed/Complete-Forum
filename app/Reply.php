@@ -5,6 +5,7 @@ namespace App;
 use App\Thread;
 use App\Favorite;
 use Carbon\Carbon;
+use App\Reputation;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
@@ -21,12 +22,16 @@ class Reply extends Model
 		parent::boot();
 		static::created(function($reply) {
 			$reply->thread->increment('replies_count');
+			// $reply->owner->increment('reputation', 2);
+			Reputation::award($reply->owner, Reputation::REPLAY_WAS_ADDED);
 		});
 		static::deleted(function($reply) {
 			if($reply->isBest()) {
 				$reply->thread->update(['best_reply_id'	=>	NULL]);
 			}
 			$reply->thread->decrement('replies_count');
+			
+			Reputation::reduce($reply->owner, Reputation::REPLAY_WAS_ADDED);
 		});
 	}
 	public function owner()

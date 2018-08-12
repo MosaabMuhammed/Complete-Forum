@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group">
-                  <div class="g-recaptcha" data-sitekey="6LfYx2gUAAAAAD_bYD6WDdmKQqC1RlCyIv3qfwsP"></div>
+                  {{-- <div class="g-recaptcha" data-sitekey="6LfYx2gUAAAAAD_bYD6WDdmKQqC1RlCyIv3qfwsP"></div> --}}
                 </div>
                 <button type="submit" class="btn btn-primary">Publish</button>
             </form>
